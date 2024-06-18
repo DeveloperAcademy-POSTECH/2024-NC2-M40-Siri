@@ -91,7 +91,21 @@ class FeedingManager: ObservableObject {
 class AlarmManager: ObservableObject {
     static let shared = AlarmManager()
     
-    @Published var scheduledAlarmDate: Date?
+    @Published var scheduledAlarmDate: Date? {
+            didSet {
+                if let date = scheduledAlarmDate {
+                    UserDefaults.standard.set(date, forKey: "scheduledAlarmDate")
+                } else {
+                    UserDefaults.standard.removeObject(forKey: "scheduledAlarmDate")
+                }
+            }
+        }
+    
+    private init() {
+            if let date = UserDefaults.standard.object(forKey: "scheduledAlarmDate") as? Date {
+                scheduledAlarmDate = date
+            }
+        }
     
     //알람 설정
     func scheduleAlarm(at date: Date, withTitle title: String, andBody body: String) {

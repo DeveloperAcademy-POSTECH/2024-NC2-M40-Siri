@@ -11,6 +11,7 @@ struct AlarmView: View {
     @ObservedObject private var alarmManager = AlarmManager.shared
     @State private var isShowingTimePicker: Bool = false
     @State private var selectedTime: Date = Date()
+    @Binding var showDeleteAlert: Bool
     
     var body: some View {
         VStack {
@@ -60,7 +61,7 @@ struct AlarmView: View {
                                 .fontWeight(.semibold)
                         }
                         .onTapGesture {
-                            //여기에 삭제 로직
+                            showDeleteAlert = true
                         }
                         .padding(.vertical, 10)
                 }
@@ -84,6 +85,7 @@ struct AlarmView: View {
         )
         .sheet(isPresented: $isShowingTimePicker) {
             TimePickerView(selectedTime: $selectedTime, temporaryTime: selectedTime)
+                .presentationDetents([.height(400), .medium, .large])
         }
     }
     
@@ -95,6 +97,6 @@ struct AlarmView: View {
     }
 }
 
-#Preview {
-    AlarmView()
-}
+//#Preview {
+//    AlarmView()
+//}

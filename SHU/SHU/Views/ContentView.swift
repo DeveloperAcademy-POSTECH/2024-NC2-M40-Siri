@@ -14,6 +14,7 @@ struct ContentView: View {
     @State private var showAlert = false
     @State private var selectedDate = Date()
     @State private var isShowingDatePicker = false
+    @State private var showDeleteAlert = false
     
     var body: some View {
         ZStack {
@@ -29,7 +30,7 @@ struct ContentView: View {
                 }
                 .frame(width: 366)
                 
-                AlarmView()
+                AlarmView(showDeleteAlert: $showDeleteAlert)
                     .padding(.bottom, 20)
                 
                 
@@ -78,6 +79,11 @@ struct ContentView: View {
                     secondaryButton: .cancel(Text("취소"))
                 )
             }
+        }
+        .alert(isPresented: $showDeleteAlert) {
+            Alert(title: Text("알람을 삭제하시곘어요?"), message: Text("삭제된 알람은 복원되지 않습니다."), primaryButton: .destructive(Text("삭제")) {
+                alarmManager.cancelAlarm()
+            }, secondaryButton: .cancel(Text("취소")))
         }
         .onAppear {
             checkNotificationPermission()

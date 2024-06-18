@@ -22,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BA2C78AB2C2227CD0069E67E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA7F054A2C2136D1003C88DE /* SHU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA7F054D2C2136D1003C88DE /* SHUApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHUApp.swift; sourceTree = "<group>"; };
 		BA7F054F2C2136D1003C88DE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -67,6 +68,7 @@
 		BA7F054C2C2136D1003C88DE /* SHU */ = {
 			isa = PBXGroup;
 			children = (
+				BA2C78AB2C2227CD0069E67E /* Info.plist */,
 				BA7F054D2C2136D1003C88DE /* SHUApp.swift */,
 				BAE687322C21747E00054EA5 /* Constants.swift */,
 				BAE6872A2C216A1200054EA5 /* Model+AppIntents */,
@@ -323,6 +325,7 @@
 				DEVELOPMENT_TEAM = 9P8S9WN957;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SHU/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -357,6 +360,7 @@
 				DEVELOPMENT_TEAM = 9P8S9WN957;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SHU/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
