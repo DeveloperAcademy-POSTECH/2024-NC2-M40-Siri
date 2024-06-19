@@ -25,7 +25,7 @@ struct TimePickerView: View {
             DatePicker("", selection: $temporaryTime, displayedComponents: [.hourAndMinute])
                 .datePickerStyle(.wheel)
                 .labelsHidden()
-                .environment(\.locale, Locale(identifier: "ko_KR"))
+                .environment(\.locale, Locale(identifier: "en_US"))
             
             RoundedRectangle(cornerRadius: 20)
                 .fill(Constants.orangeMain)
