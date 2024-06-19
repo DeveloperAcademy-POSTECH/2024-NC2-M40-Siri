@@ -13,7 +13,7 @@ struct AddFeedingIntent: AppIntent {
     
     func perform() async throws -> some IntentResult & ProvidesDialog {
             FeedingManager.shared.startFeeding(startTime: Date())
-        return .result(dialog: "수유를 시작합니다")
+        return .result(dialog: "네, 기록을 시작할게요~")
     }
 }
 
@@ -27,7 +27,7 @@ struct EndFeedingIntent: AppIntent {
             let alarmTime = Calendar.current.date(byAdding: .minute, value: 1, to: Date())!
             AlarmManager.shared.scheduleAlarm(at: alarmTime, withTitle: "수유시간", andBody: "아기 밥먹일 시간이에요!")
         }
-        return .result(dialog: "수유를 종료하고, 3시간 뒤 알람을 설정했어요!")
+        return .result(dialog: "고생하셨어요! 3시간 뒤에 알려드릴게요!")
     }
 }
 
@@ -36,16 +36,21 @@ struct FeedingShortcuts: AppShortcutsProvider {
     static var appShortcuts: [AppShortcut] {
         AppShortcut(
             intent: AddFeedingIntent(),
-            phrases: ["\(.applicationName)로 기록 시작",
-                      "\(.applicationName) 맘마 먹자"],
+            phrases: ["\(.applicationName) 수유시작",
+                      "\(.applicationName) 맘마먹자",
+                     "\(.applicationName) 분유 먹일게",
+                     "\(.applicationName) 밥 먹일게"],
             shortTitle: "수유 시작",
             systemImageName: "calendar"
         )
         AppShortcut(
             intent: EndFeedingIntent(),
-            phrases: ["\(.applicationName) 수유 종료",
-                      "\(.applicationName) 다 먹었다"],
-            shortTitle: "분유 종료",
+            phrases: ["\(.applicationName) 수유종료",
+                      "\(.applicationName) 다먹었다",
+                     "\(.applicationName) 수유 끝났어",
+                     "\(.applicationName) 수유 끝",
+                     "\(.applicationName) 다 먹였어"],
+            shortTitle: "수유 종료",
             systemImageName: "calendar"
         )
     }
