@@ -11,7 +11,7 @@ struct AlarmView: View {
     @ObservedObject private var alarmManager = AlarmManager.shared
     @State private var isShowingTimePicker: Bool = false
     @State private var selectedTime: Date = Date()
-    @Binding var showDeleteAlert: Bool
+    @Binding var showDeleteAlert: ContentView.AlertType?
     
     var body: some View {
         VStack {
@@ -61,7 +61,7 @@ struct AlarmView: View {
                                 .fontWeight(.semibold)
                         }
                         .onTapGesture {
-                            showDeleteAlert = true
+                            showDeleteAlert = .deleteAlarm
                         }
                         .padding(.vertical, 10)
                 }
