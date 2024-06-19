@@ -26,18 +26,21 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         return true
     }
     
-    // 알림이 화면에 표시될 때 호출됨 (앱이 포그라운드에 있을 때)
+    // 알림 수신시 (상황에 따른) 동작 정의
+    // (앱이 포그라운드에 있는 경우) 알림이 화면에 표시되면 호출됨
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        // 알림이 사용자에게 표시될 때 scheduledAlarmDate를 nil로 설정
+        
         AlarmManager.shared.cancelAlarm()
         completionHandler([.banner, .sound])
+        
     }
     
-    // 알림이 화면에 표시될 때 호출됨 (앱이 백그라운드에 있거나 기기가 잠겨있을 때)
-    // 사용자가 알람에 응답했을 때 scheduledAlarmDate를 nil로 설정
+    // (앱이 백그라운드에 있거나 기기가 잠겨있을 때) 사용자가 알림을 터치했을 때 호출됨
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
         AlarmManager.shared.cancelAlarm()
         completionHandler()
+        
     }
     
 }

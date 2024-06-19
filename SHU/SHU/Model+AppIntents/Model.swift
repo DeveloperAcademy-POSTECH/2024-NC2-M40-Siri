@@ -21,7 +21,6 @@ class Feeding : Identifiable, Equatable, ObservableObject {
     var endTime: Date
     @Published var amount: Int
     
-    //'O분' 형식으로 갈건데, 편의상 임시로 'O분 O초' 형식
     var duration: String {
         let totalSeconds = Int(endTime.timeIntervalSince(startTime))
         let minutes = totalSeconds / 60
@@ -35,7 +34,7 @@ class Feeding : Identifiable, Equatable, ObservableObject {
     }
 }
 
-// 수유일지 저장 및 삭제 관리 모델(싱글톤)
+// 수유일지 관리 모델
 class FeedingManager: ObservableObject {
     static let shared = FeedingManager()
     
@@ -60,8 +59,6 @@ class FeedingManager: ObservableObject {
                 self.ongoingFeeding = nil
                 self.feedings.append(newFeeding)
             }
-            
-//            AlarmManager.shared.scheduleAlarm(after: 10, withTitle: "수유시간", andBody: "수유할 시간입니다!")
         }
     }
     
@@ -72,39 +69,31 @@ class FeedingManager: ObservableObject {
         }
     }
     
-    
-    //가장 최근의 feeding은? (-> New 뱃지 때문에)
+    //가장 최근의 feeding은? (-> New 뱃지)
     func latestFeeding() -> Feeding? {
         return feedings.last
     }
 }
 
-//    // 수유량 업데이트
-//    func updateFeedingAmount(feeding: Feeding, amount: Int) {
-//        if let index = feedings.firstIndex(where: { $0.id == feeding.id }) {
-//            feedings[index].amount = amount
-//        }
-//    }
-
-//알 람 관리 모델(싱글톤)
+//알람 관리 모델
 class AlarmManager: ObservableObject {
     static let shared = AlarmManager()
     
     @Published var scheduledAlarmDate: Date? {
-            didSet {
-                if let date = scheduledAlarmDate {
-                    UserDefaults.standard.set(date, forKey: "scheduledAlarmDate")
-                } else {
-                    UserDefaults.standard.removeObject(forKey: "scheduledAlarmDate")
-                }
+        didSet {
+            if let date = scheduledAlarmDate {
+                UserDefaults.standard.set(date, forKey: "scheduledAlarmDate")
+            } else {
+                UserDefaults.standard.removeObject(forKey: "scheduledAlarmDate")
             }
         }
+    }
     
     private init() {
-            if let date = UserDefaults.standard.object(forKey: "scheduledAlarmDate") as? Date {
-                scheduledAlarmDate = date
-            }
+        if let date = UserDefaults.standard.object(forKey: "scheduledAlarmDate") as? Date {
+            scheduledAlarmDate = date
         }
+    }
     
     //알람 설정
     func scheduleAlarm(at date: Date, withTitle title: String, andBody body: String) {
@@ -115,7 +104,7 @@ class AlarmManager: ObservableObject {
         content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "alarm.mp3"))
         
         var dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
-                dateComponents.second = 0 // 정확한 분에 알람이 울리도록 설정
+        dateComponents.second = 0 // 정확한 분에 알람이 울리도록 설정
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
@@ -129,6 +118,7 @@ class AlarmManager: ObservableObject {
         scheduledAlarmDate = date
     }
     
+    //알람 수정
     func updateAlarm(at date: Date, withTitle title: String, andBody body: String) {
         DispatchQueue.main.async {
             self.cancelAlarm()
@@ -136,10 +126,9 @@ class AlarmManager: ObservableObject {
         }
     }
     
+    //알람 삭제
     func cancelAlarm() {
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         scheduledAlarmDate = nil
     }
-
-    
 }

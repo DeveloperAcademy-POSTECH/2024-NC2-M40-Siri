@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DatePickerView: View {
     @Environment(\.dismiss) var dismiss
+    
     @Binding var selectedDate: Date
     @State var temporaryDate: Date
     
@@ -18,6 +19,7 @@ struct DatePickerView: View {
                 Text("날짜 선택")
                     .font(.system(size: 28))
                     .fontWeight(.bold)
+                
                 Spacer()
             }
             
@@ -39,7 +41,6 @@ struct DatePickerView: View {
                     selectedDate = temporaryDate
                     dismiss()
                 }
-            
         }
         .frame(width: 309)
     }

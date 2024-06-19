@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ListRowView: View {
-    @ObservedObject private var feedingManager = FeedingManager.shared
     @ObservedObject var feeding: Feeding
+    
     let isNew: Bool
     
     var body: some View {
@@ -25,6 +25,7 @@ struct ListRowView: View {
                                 .foregroundStyle(Color(red: 1, green: 0.95, blue: 0.83))
                                 .fontWeight(.bold)
                         }
+                    
                     Spacer()
                 }
             }
@@ -33,7 +34,9 @@ struct ListRowView: View {
                 Text("시작 시간")
                     .font(.system(size: 20))
                     .fontWeight(.bold)
+                
                 Spacer()
+                
                 Text(formattedDate(date: feeding.startTime))
                     .font(.system(size: 20))
             }
@@ -41,7 +44,9 @@ struct ListRowView: View {
                 Text("종료 시간")
                     .font(.system(size: 20))
                     .fontWeight(.bold)
+                
                 Spacer()
+                
                 Text(formattedDate(date: feeding.endTime))
                     .font(.system(size: 20))
             }
@@ -49,7 +54,9 @@ struct ListRowView: View {
                 Text("소요 시간")
                     .font(.system(size: 20))
                     .fontWeight(.bold)
+                
                 Spacer()
+                
                 Text("\(feeding.duration)")
                     .font(.system(size: 20))
             }
@@ -77,14 +84,10 @@ struct ListRowView: View {
                             .background(Color("editColor"))
                     }
                     
-                    
                     Divider()
                     
-                    
                     Button(action: {
-                        feeding.amount = min(200, feeding.amount + 5)
-                        
-                    }) {
+                        feeding.amount = min(200, feeding.amount + 5)}) {
                         Image(systemName: "plus")
                             .frame(width: 33, height: 30)
                             .foregroundStyle(.black)
@@ -97,7 +100,6 @@ struct ListRowView: View {
                     .frame(width: 100))
                 .frame(width: 100, height: 30)
                 .padding(.leading, 5)
-            
             }
         }
         .padding(.horizontal, 26)

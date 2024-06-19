@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AlarmView: View {
     @ObservedObject private var alarmManager = AlarmManager.shared
+    
     @State private var isShowingTimePicker: Bool = false
     @State private var selectedTime: Date = Date()
     @Binding var showDeleteAlert: ContentView.AlertType?
@@ -92,7 +93,7 @@ struct AlarmView: View {
     private func formattedDate(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "a hh:mm"
-        formatter.locale = Locale(identifier: "en_US_POSIX") // "AM"과 "PM"을 영어로 출력
+        formatter.locale = Locale(identifier: "en_US_POSIX") // "AM", "PM"
         return formatter.string(from: date)
     }
 }

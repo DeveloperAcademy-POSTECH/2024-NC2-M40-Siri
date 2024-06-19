@@ -42,10 +42,9 @@ struct ContentView: View {
                 AlarmView(showDeleteAlert: $alertType)
                     .padding(.bottom, 20)
                 
-                
                 VStack(spacing: 10) {
-                    
                     Divider()
+                    
                     HStack {
                         Text(formattedDate(date: selectedDate))
                             .font(.system(size: 22))
@@ -59,11 +58,12 @@ struct ContentView: View {
                                 .font(.system(size: 15))
                                 .foregroundStyle(.tertiary)
                         }
-                            .onTapGesture {
-                                isShowingDatePicker = true
-                            }
+                        .onTapGesture {
+                            isShowingDatePicker = true
+                        }
                     }
                     .frame(width: 366, height: 22)
+                    
                     Divider()
                 }
                 
@@ -112,6 +112,7 @@ struct ContentView: View {
         }
     }
     
+    //onAppear시 알림 권한 설정 여부 체크
     private func checkNotificationPermission() {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             DispatchQueue.main.async {
@@ -127,6 +128,7 @@ struct ContentView: View {
         }
     }
     
+    //알림 권한 요청
     private func requestNotificationPermission() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
             DispatchQueue.main.async {
@@ -136,10 +138,6 @@ struct ContentView: View {
                 self.alertType = granted ? nil : .notificationPermission
             }
         }
-    }
-    
-    private func deleteItems(at offsets: IndexSet) {
-        feedingManager.deleteFeedings(at: offsets)
     }
     
     private func formattedDate(date: Date) -> String {
