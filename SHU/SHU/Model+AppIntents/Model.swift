@@ -62,13 +62,6 @@ class FeedingManager: ObservableObject {
         }
     }
     
-    //특정 수유 일지 삭제
-    func deleteFeedings(at offsets: IndexSet) {
-        DispatchQueue.main.async {
-            self.feedings.remove(atOffsets: offsets)
-        }
-    }
-    
     //가장 최근의 feeding은? (-> New 뱃지)
     func latestFeeding() -> Feeding? {
         return feedings.last
