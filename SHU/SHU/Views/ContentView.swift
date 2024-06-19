@@ -27,7 +27,7 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Constants.backGround
+            Color("backGround")
                 .ignoresSafeArea(.all)
             
             VStack {
@@ -43,7 +43,7 @@ struct ContentView: View {
                     .padding(.bottom, 20)
                 
                 
-                VStack {
+                VStack(spacing: 10) {
                     
                     Divider()
                     HStack {
@@ -51,8 +51,14 @@ struct ContentView: View {
                             .font(.system(size: 22))
                             .fontWeight(.bold)
                         Spacer()
-                        Image(systemName: "chevron.right")
-                            .foregroundStyle(.tertiary)
+                        HStack(spacing: 2) {
+                            Image(systemName: "calendar")
+                                .font(.system(size: 22))
+                                .foregroundStyle(Color("calendarColor"))
+                            Image(systemName: "chevron.down")
+                                .font(.system(size: 15))
+                                .foregroundStyle(.tertiary)
+                        }
                             .onTapGesture {
                                 isShowingDatePicker = true
                             }
@@ -60,7 +66,6 @@ struct ContentView: View {
                     .frame(width: 366, height: 22)
                     Divider()
                 }
-                .padding(0)
                 
                 List {
                     ForEach(feedingManager.feedings.filter { Calendar.current.isDate($0.startTime, inSameDayAs: selectedDate) }.reversed()) { feeding in
@@ -69,6 +74,7 @@ struct ContentView: View {
                             .listRowBackground(Color.clear)
                     }
                 }
+                .padding(.horizontal, 16)
                 .listStyle(PlainListStyle())
                 
                 Spacer()
@@ -95,6 +101,10 @@ struct ContentView: View {
                         secondaryButton: .cancel(Text("취소"))
                     )
                 }
+            }
+            .sheet(isPresented: $isShowingDatePicker) {
+                DatePickerView(selectedDate: $selectedDate, temporaryDate: selectedDate)
+                    .presentationDetents([.height(400), .medium, .large])
             }
         }
         .onAppear {

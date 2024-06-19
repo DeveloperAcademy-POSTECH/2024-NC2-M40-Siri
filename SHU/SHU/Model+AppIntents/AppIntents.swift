@@ -36,7 +36,7 @@ struct FeedingShortcuts: AppShortcutsProvider {
     static var appShortcuts: [AppShortcut] {
         AppShortcut(
             intent: AddFeedingIntent(),
-            phrases: ["\(.applicationName) 수유 시작",
+            phrases: ["\(.applicationName)로 기록 시작",
                       "\(.applicationName) 맘마 먹자"],
             shortTitle: "수유 시작",
             systemImageName: "calendar"

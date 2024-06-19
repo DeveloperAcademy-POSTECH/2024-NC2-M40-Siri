@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ListRowView: View {
     @ObservedObject private var feedingManager = FeedingManager.shared
-    let feeding: Feeding
+    @ObservedObject var feeding: Feeding
     let isNew: Bool
     
     var body: some View {
@@ -17,13 +17,13 @@ struct ListRowView: View {
             if isNew {
                 HStack {
                     RoundedRectangle(cornerRadius: 15)
-                        .fill(Constants.orangePoint)
-                        .frame(width: 78, height: 34)
+                        .fill(Color("pointColor"))
+                        .frame(width: 73, height: 34)
                         .overlay {
-                            Text("New")
+                            Text("NEW")
                                 .font(.system(size: 17))
                                 .foregroundStyle(Color(red: 1, green: 0.95, blue: 0.83))
-                                .fontWeight(.semibold)
+                                .fontWeight(.bold)
                         }
                     Spacer()
                 }
@@ -58,21 +58,51 @@ struct ListRowView: View {
                 Text("수유량")
                     .font(.system(size: 20))
                     .fontWeight(.bold)
+                
                 Spacer()
                 
                 
-                Stepper(value: $feedingManager.feedings[feedingManager.feedings.firstIndex(of: feeding)!].amount, in: 0...200, step: 5) {
-                    EmptyView()
-                }
-                Text("\(feeding.amount) mL")
+                Text("\(feeding.amount) cc")
                     .font(.system(size: 20))
                     .fontWeight(.bold)
-                    .frame(width: 71)
+                
+                HStack {
+                    Button(action: {
+                        feeding.amount = max(0, feeding.amount - 5)
+                        
+                    }) {
+                        Image(systemName: "minus")
+                            .frame(width: 33, height: 30)
+                            .foregroundStyle(.black)
+                            .background(Color("editColor"))
+                    }
+                    
+                    
+                    Divider()
+                    
+                    
+                    Button(action: {
+                        feeding.amount = min(200, feeding.amount + 5)
+                        
+                    }) {
+                        Image(systemName: "plus")
+                            .frame(width: 33, height: 30)
+                            .foregroundStyle(.black)
+                            .background(Color("editColor"))
+                    }
+                }
+                .buttonStyle(BorderlessButtonStyle())
+                .background(RoundedRectangle(cornerRadius: 7)
+                    .fill(Color("editColor"))
+                    .frame(width: 100))
+                .frame(width: 100, height: 30)
+                .padding(.leading, 5)
+            
             }
         }
-        .padding(.horizontal, 16)
+        .padding(.horizontal, 26)
         .padding(.vertical, 10)
-        .frame(width: 366, alignment: .topLeading)
+        .frame(width: 341, alignment: .topLeading)
         .background(.white)
         .cornerRadius(16)
         .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 0)

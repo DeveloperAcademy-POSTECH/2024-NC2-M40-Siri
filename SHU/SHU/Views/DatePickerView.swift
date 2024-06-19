@@ -27,7 +27,7 @@ struct DatePickerView: View {
                 .environment(\.locale, Locale(identifier: "ko_KR"))
             
             RoundedRectangle(cornerRadius: 20)
-                .fill(Constants.orangeMain)
+                .fill(Color("editColor"))
                 .frame(height: 44)
                 .shadow(color: .black.opacity(0.25), radius: 5)
                 .overlay {

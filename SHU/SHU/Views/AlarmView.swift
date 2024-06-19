@@ -17,7 +17,7 @@ struct AlarmView: View {
         VStack {
             HStack {
                 Image(systemName: "alarm")
-                    .foregroundStyle(Constants.orangePoint)
+                    .foregroundStyle(Color("pointColor"))
                     .font(.system(size: 22))
                 
                 Text("다음 알람 시간")
@@ -38,7 +38,7 @@ struct AlarmView: View {
                 
                 HStack(spacing: 16) {
                     RoundedRectangle(cornerRadius: 20)
-                        .fill(Constants.orangeMain)
+                        .fill(Color("editColor"))
                         .frame(width: 103, height: 40)
                         .shadow(color: .black.opacity(0.25), radius: 5)
                         .overlay {
@@ -52,7 +52,7 @@ struct AlarmView: View {
                         }
                     
                     RoundedRectangle(cornerRadius: 20)
-                        .fill(Constants.orangePoint)
+                        .fill(Color("deleteColor"))
                         .frame(width: 103, height: 40)
                         .shadow(color: .black.opacity(0.25), radius: 5)
                         .overlay {

@@ -11,7 +11,7 @@ import UIKit
 import UserNotifications
 
 //수유일지 모델
-class Feeding : Identifiable, Equatable {
+class Feeding : Identifiable, Equatable, ObservableObject {
     static func == (lhs: Feeding, rhs: Feeding) -> Bool {
         return lhs.id == rhs.id
     }
@@ -19,14 +19,13 @@ class Feeding : Identifiable, Equatable {
     var id: UUID = UUID()
     var startTime: Date
     var endTime: Date
-    var amount: Int
+    @Published var amount: Int
     
     //'O분' 형식으로 갈건데, 편의상 임시로 'O분 O초' 형식
     var duration: String {
         let totalSeconds = Int(endTime.timeIntervalSince(startTime))
         let minutes = totalSeconds / 60
-        let seconds = totalSeconds % 60
-        return "\(minutes)분 \(seconds)초"
+        return "\(minutes)분"
     }
     
     init(startTime: Date, endTime: Date, amount: Int) {

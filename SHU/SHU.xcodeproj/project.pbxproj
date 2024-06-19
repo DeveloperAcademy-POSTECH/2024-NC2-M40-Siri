@@ -18,7 +18,6 @@
 		BAE687292C21696C00054EA5 /* AppIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE687282C21696C00054EA5 /* AppIntents.swift */; };
 		BAE6872D2C216D2800054EA5 /* ListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6872C2C216D2800054EA5 /* ListRowView.swift */; };
 		BAE6872F2C21711100054EA5 /* AlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6872E2C21711100054EA5 /* AlarmView.swift */; };
-		BAE687332C21747E00054EA5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE687322C21747E00054EA5 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +34,6 @@
 		BAE687282C21696C00054EA5 /* AppIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntents.swift; sourceTree = "<group>"; };
 		BAE6872C2C216D2800054EA5 /* ListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowView.swift; sourceTree = "<group>"; };
 		BAE6872E2C21711100054EA5 /* AlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmView.swift; sourceTree = "<group>"; };
-		BAE687322C21747E00054EA5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +68,6 @@
 			children = (
 				BA2C78AB2C2227CD0069E67E /* Info.plist */,
 				BA7F054D2C2136D1003C88DE /* SHUApp.swift */,
-				BAE687322C21747E00054EA5 /* Constants.swift */,
 				BAE6872A2C216A1200054EA5 /* Model+AppIntents */,
 				BAE6872B2C216A5B00054EA5 /* Views */,
 				BA7F05512C2136D2003C88DE /* Assets.xcassets */,
@@ -185,7 +182,6 @@
 				BAE687292C21696C00054EA5 /* AppIntents.swift in Sources */,
 				BAE6872D2C216D2800054EA5 /* ListRowView.swift in Sources */,
 				BA7F05502C2136D1003C88DE /* ContentView.swift in Sources */,
-				BAE687332C21747E00054EA5 /* Constants.swift in Sources */,
 				BAE6872F2C21711100054EA5 /* AlarmView.swift in Sources */,
 				BA959EE12C21D6E3004344CE /* DatePickerView.swift in Sources */,
 				BA7F054E2C2136D1003C88DE /* SHUApp.swift in Sources */,
@@ -326,7 +322,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SHU/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "우리아기";
+				INFOPLIST_KEY_CFBundleDisplayName = "기록할게";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -362,7 +358,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SHU/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "우리아기";
+				INFOPLIST_KEY_CFBundleDisplayName = "기록할게";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
