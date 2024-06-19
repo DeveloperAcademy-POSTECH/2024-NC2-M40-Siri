@@ -24,7 +24,7 @@ struct EndFeedingIntent: AppIntent {
         DispatchQueue.main.async {
             FeedingManager.shared.endFeeding(endTime: Date())
             
-            let alarmTime = Calendar.current.date(byAdding: .minute, value: 1, to: Date())!
+            let alarmTime = Calendar.current.date(byAdding: .hour, value: 3, to: Date())!
             AlarmManager.shared.scheduleAlarm(at: alarmTime, withTitle: "수유시간", andBody: "아기 밥먹일 시간이에요!")
         }
         return .result(dialog: "고생하셨어요! 3시간 뒤에 알려드릴게요!")
