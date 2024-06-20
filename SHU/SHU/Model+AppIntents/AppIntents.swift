@@ -8,21 +8,21 @@
 import Foundation
 import AppIntents
 
-struct AddFeedingIntent: AppIntent {
+struct StartFeedingIntent: AppIntent {
     static let title: LocalizedStringResource = "수유 시작"
     
-    func perform() async throws -> some IntentResult & ProvidesDialog {
+    func perform() throws -> some IntentResult & ProvidesDialog {
             FeedingManager.shared.startFeeding(startTime: Date())
         return .result(dialog: "네, 기록을 시작할게요~")
     }
 }
 
-struct EndFeedingIntent: AppIntent {
+struct FinishFeedingIntent: AppIntent {
     static let title: LocalizedStringResource = "수유 종료"
     
-    func perform() async throws -> some IntentResult & ProvidesDialog {
+    func perform() throws -> some IntentResult & ProvidesDialog {
         DispatchQueue.main.async {
-            FeedingManager.shared.endFeeding(endTime: Date())
+            FeedingManager.shared.finishFeeding(endTime: Date())
             
             let alarmTime = Calendar.current.date(byAdding: .hour, value: 3, to: Date())!
             AlarmManager.shared.scheduleAlarm(at: alarmTime, withTitle: "수유시간", andBody: "아기 밥먹일 시간이에요!")
@@ -35,23 +35,23 @@ struct EndFeedingIntent: AppIntent {
 struct FeedingShortcuts: AppShortcutsProvider {
     static var appShortcuts: [AppShortcut] {
         AppShortcut(
-            intent: AddFeedingIntent(),
-            phrases: ["\(.applicationName) 수유시작",
+            intent: StartFeedingIntent(),
+            phrases: ["\(.applicationName) 수유 시작",
                       "\(.applicationName) 맘마먹자",
                      "\(.applicationName) 분유 먹일게",
                      "\(.applicationName) 밥 먹일게"],
             shortTitle: "수유 시작",
-            systemImageName: "calendar"
+            systemImageName: "waterbottle"
         )
         AppShortcut(
-            intent: EndFeedingIntent(),
+            intent: FinishFeedingIntent(),
             phrases: ["\(.applicationName) 수유종료",
                       "\(.applicationName) 다먹었다",
                      "\(.applicationName) 수유 끝났어",
                      "\(.applicationName) 수유 끝",
                      "\(.applicationName) 다 먹였어"],
             shortTitle: "수유 종료",
-            systemImageName: "calendar"
+            systemImageName: "waterbottle.fill"
         )
     }
 }

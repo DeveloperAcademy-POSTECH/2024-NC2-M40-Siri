@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Combine
 import UIKit
 import UserNotifications
 
@@ -52,7 +51,7 @@ class FeedingManager: ObservableObject {
     }
     
     //분유 수유 종료 및 저장
-    func endFeeding(endTime: Date) {
+    func finishFeeding(endTime: Date) {
         DispatchQueue.main.async {
             if let newFeeding = self.ongoingFeeding {
                 newFeeding.endTime = Date()
