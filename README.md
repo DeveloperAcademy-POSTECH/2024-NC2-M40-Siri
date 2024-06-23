@@ -44,6 +44,102 @@ Use Case 결정 과정에서는 먼저 사용자의 상태와 니즈를 구체�
 
 
 ## 🛠️ About Code
-(핵심 코드에 대한 설명 추가)
+‘기록할게’ 앱에는 두가지 핵심 기능이 정의되어 있습니다!
+1. 수유를 시작할 때, 시작 시간을 기록하기
+2. 수유를 마칠 때, 끝난 시간을 기록하고 3시간 뒤에 알람을 설정하기
+<details><summary>code
+</summary>
 
+```js
+class FeedingManager {
+	func startFeeding() {...}
+	func finishFeeding() {...}
+}
+
+class AlarmManager {
+	func scheduleAlarm() {...}
+}
+
+// 1번기능: 수유 시작시간 기록
+FeedingManager.startFeeding()
+
+// 2번기능: 수유 종료시간 기록 + 알람 설정
+FeedingManager.finishFeeding()
+AlarmManager.scheduleAlarm()
+```
+</details>
+
+이 기능을, 사용자가 꼭 직접 앱을 열지 않아도 언제든 사용할 수 있도록
+앱 속의 기능을 ‘사용자와 시스템에게 노출’시켜 줄 수 있는데요!
+‘App Intents’ 프레임워크를 활용해 쉽고 간단하게 구현할 수 있습니다.
+
+>App Intents 프레임워크로, 동작 정의
+<details><summary>code
+</summary>
+
+```js
+import AppIntents
+
+struct StartFeedingIntent: AppIntent {
+    static let title: LocalizedStringResource = "수유 시작"
+    
+    func perform() throws -> some IntentResult & ProvidesDialog {
+            FeedingManager.shared.startFeeding(startTime: Date())
+        return .result(dialog: "네, 기록을 시작할게요~")
+    }
+}
+
+struct FinishFeedingIntent: AppIntent {
+    static let title: LocalizedStringResource = "수유 종료"
+    
+    func perform() throws -> some IntentResult & ProvidesDialog {
+        DispatchQueue.main.async {
+            FeedingManager.shared.endFeeding(endTime: Date())
+            
+            let alarmTime = Calendar.current.date(byAdding: .hour, value: 3, to: Date())!
+            AlarmManager.shared.scheduleAlarm(at: alarmTime, withTitle: "수유시간", andBody: "아기 밥먹일 시간이에요!")
+        }
+        return .result(dialog: "고생하셨어요! 3시간 뒤에 알려드릴게요!")
+    }
+}
+```
+</details>
+
+이렇게 노출된 Intent는, 사용자가 단축어 앱에서 사용할 수 있는데요
+사용자가 직접 단축어를 설정하지 않아도 되도록, 기본 단축어를 정의해서 제공할 수 있습니다!
+한 앱당 최대 10개의 기본 단축어를 생성할 수 있습니다
+
+>App Shortcuts Provider로, 기본 단축어 생성
+<details><summary>code
+</summary>
+
+```js
+import AppIntents
+
+// 단축어 기본 제공
+struct FeedingShortcuts: AppShortcutsProvider {
+    static var appShortcuts: [AppShortcut] {
+        AppShortcut(
+            intent: StartFeedingIntent(),
+            phrases: ["\(.applicationName) 수유 시작",
+                      "\(.applicationName) 맘마먹자",
+                     "\(.applicationName) 분유 먹일게",
+                     "\(.applicationName) 밥 먹일게"],
+            shortTitle: "수유 시작",
+            systemImageName: "waterbottle"
+        )
+        AppShortcut(
+            intent: FinishFeedingIntent(),
+            phrases: ["\(.applicationName) 수유종료",
+                      "\(.applicationName) 다먹었다",
+                     "\(.applicationName) 수유 끝났어",
+                     "\(.applicationName) 수유 끝",
+                     "\(.applicationName) 다 먹였어"],
+            shortTitle: "수유 종료",
+            systemImageName: "waterbottle.fill"
+        )
+    }
+}
+```
+</details>
 
